@@ -95,7 +95,7 @@ class MenuScreen(Screen):
     capture = cv2.VideoCapture()
     conversation = []
     activated = False  # Activation flag
-    api_key = "AIzaSyDU3X8MnBiFBvART6R9zMeyuL_UCHeLXTI"  # Replace with your actual API key # Hardcoded API Key for Testing
+    api_key = ""  # Replace with your actual API key # Hardcoded API Key for Testing
     client = genai.Client(api_key= api_key)# Initialize Gemini client
     timer = 0
     drowsCounter = 0
