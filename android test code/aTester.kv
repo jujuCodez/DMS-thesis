@@ -1,0 +1,59 @@
+<Myroot>:
+    label: label
+    testlabel: testlabel
+    gpslabel:gpslabel
+
+    image:image
+    inp :inp
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id:gpslabel
+            text: "gps loc"
+            font_size: 32
+
+
+        Label:
+            id: label
+            font_size: 32
+            color: 1, 0.45, 0
+        
+        Image:
+            id: image
+            source: 'hi.jpg'
+            allow_stretch: True
+            
+
+        Label :
+            id: testlabel
+            text: "-"
+            font_size:64
+        TextInput:
+            id: inp
+            
+        Button:
+            text: "start monitoring"
+            font_size: 32
+            size: 100,50
+            on_press:root.start()
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                text: "home"
+                font_size: 32
+                size: 100,50
+            Button:
+                text: "settings"
+                font_size: 32
+                size: 100,50
+            Button:
+                text: "status"
+                font_size: 32
+                size: 100,50
+
+            
+        

@@ -1,0 +1,176 @@
+<LoginScreen>:
+    title:title
+    logname: logname
+    password: password
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            id:title
+            text: "DMS"
+            font_size: 32
+
+
+        Label:
+            text: "enter name and password"
+            font_size: 16
+            color: 1, 0.45, 0
+        TextInput:
+            id: logname
+        TextInput:
+            id: password
+
+        Button:
+            text: "login"
+            font_size: 32
+            size: 100,50
+            on_press: root.login()
+
+
+<MenuScreen>:
+    label: label
+    testlabel: testlabel
+    gpslabel:gpslabel
+    count1:count1
+    count2:count2
+    count3:count3
+
+    image:image
+   
+
+    chatout:chatout
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            id:count1
+            text: "counter"
+            font_size: 20
+        Label:
+            id:count2
+            text: "downcounter"
+            font_size: 20
+        
+        Label:
+            id:count3
+            text: "distcounter"
+            font_size: 20
+
+        Label:
+            id:gpslabel
+            text: "http://192.168.4.1"
+            font_size: 20
+        Label:
+            id: label
+            font_size: 20
+        
+        Image:
+            id: image
+            source: 'placeholder.jpg'
+            allow_stretch: True
+            
+
+        Label :
+            id: testlabel
+            text: "-"
+            font_size:20
+        
+            
+        Button:
+            text: "start monitoring"
+            font_size: 32
+            size: 100,50
+            on_press:root.start()
+
+
+        ScrollView:
+        
+            do_scroll_x: False
+            bar_width: dp(10)
+            Label :
+                id: chatout
+                text: "-"
+                font_size:20
+                markup:True 
+                size_hint_y:None
+                font_size:16
+                halign:"left"
+                valign:"top"
+
+        Button:
+            text: "Send"
+            size_hint_x: None
+            width: dp(80)
+            on_press: root.send_message()
+                
+                
+
+                
+            
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                text: "exit"
+                font_size: 32
+                size: 100,50
+                on_press: root.manager.current = 'login'
+            Button:
+                text: "settings"
+                font_size: 32
+                size: 100,50
+                on_press: root.manager.current = 'settings'
+            Button:
+                text: "profile"
+                font_size: 32
+                size: 100,50
+                on_press: root.manager.current = 'settings'
+
+<SettingsScreen>:
+    slider:slider
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: "sensitivity"
+            font_size: 16
+            color: 1, 0.45, 0
+        
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Slider:
+                id: slider
+                min: 0
+                max: 100
+                step: 1
+                orientation: 'horizontal'
+            Button:
+                text: "set"
+                font_size: 32
+                size: 50,50
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                text: "return"
+                font_size: 32
+                size: 100,50
+                on_press: root.manager.current = 'menu'
+            Button:
+                text: "profile"
+                font_size: 32
+                size: 100,50
+                on_press: root.manager.current = 'login'
+
+   
+    
+
+
+
+
