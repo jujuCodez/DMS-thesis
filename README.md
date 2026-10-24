@@ -1,10 +1,10 @@
-# Driver Monitoring System (DMS) – Thesis Project 🚗🧠
+# Driver Monitoring System (DMS) – Thesis Project 
 
 A real-time AI-powered application designed to monitor driver behavior and alert for states such as **drowsiness**, **distraction**, or **mobile phone usage** using a lightweight CNN model and a conversational safety assistant powered by Gemini AI. Built for intelligent fleet monitoring and road safety enhancement.
 
 ---
 
-## 📌 Project Objectives
+##  Project Objectives
 
 - Detect unsafe driver states from live camera feed
 - Provide real-time visual and auditory feedback
@@ -14,7 +14,7 @@ A real-time AI-powered application designed to monitor driver behavior and alert
 
 ---
 
-## 🧠 Core Features
+## Core Features
 
 - 🎥 Live driver face detection and state classification (6 classes)
 - 🧪 CNN inference using TorchScript (.pt models)
@@ -25,7 +25,7 @@ A real-time AI-powered application designed to monitor driver behavior and alert
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 | Layer        | Tools Used                          |
 |--------------|-------------------------------------|
@@ -38,14 +38,14 @@ A real-time AI-powered application designed to monitor driver behavior and alert
 
 ---
 
-## 🧪 Model Variants Trained
+## Model Variants Trained
 
-- ✅ `mobilenetv3_large_100`
-- ✅ `mobilenetv3_small_100`
-- ✅ `mobilevit_xs`
-- ✅ `mobilevitv2_100`
-- ✅ `efficientnet_lite0`
-- ✅ `efficientnetv2_rw_t`
+- `mobilenetv3_large_100`
+- `mobilenetv3_small_100`
+- `mobilevit_xs`
+- `mobilevitv2_100`
+- `efficientnet_lite0`
+- `efficientnetv2_rw_t`
 
 Each trained using TIMM + PyTorch, then converted to TorchScript via `pytorch_2_torchscript.py`.
 
@@ -75,7 +75,7 @@ python app.py
 
 ---
 
-## 🎯 Usage
+## Usage
 
 - The app captures video from a stream (`http://192.168.4.1:81/stream` by default)
 - Predicts states like:
@@ -87,7 +87,7 @@ python app.py
 
 ---
 
-## 📂 File Structure
+## File Structure
 
 | File / Folder                     | Description |
 |----------------------------------|-------------|
@@ -100,14 +100,14 @@ python app.py
 
 ---
 
-## 📜 License
+## License
 
 MIT License – Free for research and educational use.  
 Commercial usage requires permission from the authors.
 
 ---
 
-## 📣 Acknowledgments
+## Acknowledgments
 
 Developed as part of a Computer Engineering undergraduate thesis project.  
 Model architectures powered by the [TIMM library](https://github.com/huggingface/pytorch-image-models).
