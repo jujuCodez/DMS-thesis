@@ -16,12 +16,12 @@ A real-time AI-powered application designed to monitor driver behavior and alert
 
 ## Core Features
 
-- 🎥 Live driver face detection and state classification (6 classes)
-- 🧪 CNN inference using TorchScript (.pt models)
-- 💬 Conversational feedback via Gemini AI
-- 🔊 Audio alerts using TTS
-- 📱 GUI developed with Kivy and KivyMD
-- 🔄 Easily extendable to embedded platforms (Raspberry Pi, Jetson Nano, etc.)
+- Live driver face detection and state classification (6 classes)
+- CNN inference using TorchScript (.pt models)
+- Conversational feedback via Gemini AI
+- Audio alerts using TTS
+- GUI developed with Kivy and KivyMD
+- Easily extendable to embedded platforms (Raspberry Pi, Jetson Nano, etc.)
 
 ---
 
