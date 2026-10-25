@@ -1,0 +1,5 @@
+# Select a torch build appropriate to your CPU/CUDA environment.
+# Original tested package versions were not included in the archive.
+torch
+timm
+numpy

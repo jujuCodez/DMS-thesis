@@ -1,0 +1,8 @@
+# Inferred from imports; original version lock was not supplied.
+streamlit
+pandas
+numpy
+plotly
+pydeck
+python-dateutil
+firebase-admin

@@ -1,114 +1,56 @@
-# Driver Monitoring System (DMS) – Thesis Project 
+# Driver Attention Monitoring System
 
-A real-time AI-powered application designed to monitor driver behavior and alert for states such as **drowsiness**, **distraction**, or **mobile phone usage** using a lightweight CNN model and a conversational safety assistant powered by Gemini AI. Built for intelligent fleet monitoring and road safety enhancement.
+Computer Engineering undergraduate team thesis at De La Salle University: camera-based driver-state monitoring, alerts, and fleet-log review.
 
----
+**Interviewers: start with [the review guide](docs/REVIEW_GUIDE.md).** The [Flutter prototype](prototype/) is a source snapshot, not a complete independently buildable mobile project.
 
-##  Project Objectives
+## Implemented components
 
-- Detect unsafe driver states from live camera feed
-- Provide real-time visual and auditory feedback
-- Integrate a conversational AI assistant for short verbal recommendations
-- Enable lightweight, portable deployment using TorchScript
-- Demonstrate multimodal driver monitoring on embedded-compatible interfaces
+- Flutter/Dart UI: MJPEG frames, calibration, monitoring controls, profiles, logs and test tools.
+- MobileViT v2 ONNX inference and a native MediaPipe face-landmarker channel, with pose baselines, dwell timers and alert cooldowns.
+- Audio/TTS alerts with optional Gemini wording and request instrumentation.
+- Local SQLite and Firestore log sinks, GPS, timing and event aggregation.
+- Python/Streamlit fleet dashboard with event summaries and map views.
+- PyTorch/timm model timing and a TorchScript conversion experiment.
 
----
+Flutter classifier label order: `drowsy`, `focused`, `using phone`, `yawning`. Looking-away and no-face conditions are handled separately. Earlier Python/Kivy experiments have different configurations.
 
-## Core Features
+## Repository map
 
-- Live driver face detection and state classification (6 classes)
-- CNN inference using TorchScript (.pt models)
-- Conversational feedback via Gemini AI
-- Audio alerts using TTS
-- GUI developed with Kivy and KivyMD
-- Easily extendable to embedded platforms (Raspberry Pi, Jetson Nano, etc.)
+| Path | Purpose |
+|---|---|
+| [prototype/lib/](prototype/lib/) | Flutter source extracted from the thesis archive |
+| [prototype/driver_log_dashboard.py](prototype/driver_log_dashboard.py) | Fleet dashboard |
+| [prototype/fps_model_test.py](prototype/fps_model_test.py) | Synthetic-input model timing |
+| [prototype/pth_pt.py](prototype/pth_pt.py) | Historical TorchScript conversion experiment |
+| [docs/REVIEW_GUIDE.md](docs/REVIEW_GUIDE.md) | Walkthrough and engineering findings |
+| [prototype/README.md](prototype/README.md) | Setup prerequisites and missing artifacts |
+| [prototype/PUBLICATION_NOTES.md](prototype/PUBLICATION_NOTES.md) | Publication changes |
+| model_trainers/, app_codes_v8/, android test code/ | Existing earlier material, preserved |
+| [docs/legacy-kivy-readme.md](docs/legacy-kivy-readme.md) | Historical previous README |
 
----
+## System flow
 
-## Tech Stack
-
-| Layer        | Tools Used                          |
-|--------------|-------------------------------------|
-| Frontend     | Kivy, KivyMD                        |
-| Backend      | Python, OpenCV, PyTorch             |
-| AI Models    | MobileNetV3, MobileViT, EfficientNet (via timm) |
-| Deployment   | TorchScript                         |
-| Voice        | Plyer TTS, Gemini (Google Generative AI) |
-| Data Format  | Preprocessed cropped face images    |
-
----
-
-## Model Variants Trained
-
-- `mobilenetv3_large_100`
-- `mobilenetv3_small_100`
-- `mobilevit_xs`
-- `mobilevitv2_100`
-- `efficientnet_lite0`
-- `efficientnetv2_rw_t`
-
-Each trained using TIMM + PyTorch, then converted to TorchScript via `pytorch_2_torchscript.py`.
-
----
-
-## 🔧 Local Setup
-
-### 1. Clone and Install Dependencies
-
-```bash
-git clone https://github.com/your-repo/dms-thesis.git
-cd dms-thesis
-pip install -r requirements.txt
+```text
+MJPEG camera -> preprocessing -> native landmarks + ONNX classification
+ -> calibration / dwell rules -> UI + audio / TTS (+ optional Gemini)
+ -> local SQLite / optional Firestore logs -> Streamlit fleet dashboard
 ```
 
-### 2. Create `.env` File
+## Reproduction status
 
-```bash
-echo "GEMINI_API_KEY=your_key_here" > .env
-```
+The archive contains three Python scripts and Flutter `lib/` sources. It does NOT contain the original `pubspec.yaml`/lockfile, Android/iOS scaffolding, native `face_landmarker` implementation, model/audio assets, firmware, datasets, checkpoints, or a reproducible accuracy-evaluation bundle. No hardware run, mobile build, live-cloud integration or accuracy result was independently reproduced for publication. See the static validation report.
 
-### 3. Run the App
+## Team and provenance
 
-```bash
-python app.py
-```
+Thesis: **Driver Attention Monitoring System with AI-Based Assistant for Fleet Operations**. Team: Michael Judrick M. Aringo, Henson Adrian T. Lee, Gabriel Alexis C. Ocampo, Jared Craig C. Ong. Repository ownership does not imply sole authorship.
 
----
+Snapshot source: `DSP-1-2425-C1-Thesis Prototype Codes.zip`. Original-file hashes and publication changes are documented. Earlier repository history remains intact.
 
-## Usage
+## Research limitations
 
-- The app captures video from a stream (`http://192.168.4.1:81/stream` by default)
-- Predicts states like:
-  - `focused`, `drowsy`, `sleepy`, `using phone`, `holding phone`, `yawning`
-- Displays:
-  - Frame with annotated face box and prediction
-  - Cumulative counters for driver states
-- Gemini AI triggers a short, context-aware voice reply when risky behavior is detected
+This is a research prototype, not a validated automotive safety product. Archived authentication stores plaintext passwords and needs replacement before real accounts are used. Location, identity and conversation logs need appropriate access controls, consent and retention. Use synthetic data and an isolated backend for review.
 
----
+## Licensing
 
-## File Structure
-
-| File / Folder                     | Description |
-|----------------------------------|-------------|
-| `app.py`                         | Main Kivy app and AI logic |
-| `scenes.kv`                      | UI layout (screens) |
-| `pytorch_2_torchscript.py`       | Converts .pth to TorchScript .pt |
-| `model_trainer_notebook_*.ipynb` | Model training notebooks |
-| `converted_model.pt`             | Pretrained model for inference |
-| `.env`                           | Secret environment variables (not committed) |
-
----
-
-## License
-
-MIT License – Free for research and educational use.  
-Commercial usage requires permission from the authors.
-
----
-
-## Acknowledgments
-
-Developed as part of a Computer Engineering undergraduate thesis project.  
-Model architectures powered by the [TIMM library](https://github.com/huggingface/pytorch-image-models).
-
+No new license grant is made by this upload. The old README's MIT/commercial-use wording was inconsistent, and no project license file accompanied the archive. Confirm permissions with the authors before reuse; dependencies retain their own licenses.
