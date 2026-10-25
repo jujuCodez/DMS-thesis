@@ -1,56 +1,100 @@
 # Driver Attention Monitoring System
+### AI-Assisted Driver Monitoring for Fleet Operations
 
-Computer Engineering undergraduate team thesis at De La Salle University: camera-based driver-state monitoring, alerts, and fleet-log review.
+A Computer Engineering undergraduate thesis developed at **De La Salle University**, integrating computer vision, mobile application development, and fleet telemetry to monitor driver attention and deliver contextual alerts.
 
-**Interviewers: start with [the review guide](docs/REVIEW_GUIDE.md).** The [Flutter prototype](prototype/) is a source snapshot, not a complete independently buildable mobile project.
+The project combines camera-based driver-state classification with facial landmarks, head-pose calibration, and temporal decision rules. A Flutter application provides monitoring and feedback, while a Streamlit dashboard supports review of aggregated driver events.
 
-## Implemented components
+[Technical walkthrough](docs/REVIEW_GUIDE.md) · [Prototype setup](prototype/README.md) · [Validation notes](prototype/VALIDATION.md)
 
-- Flutter/Dart UI: MJPEG frames, calibration, monitoring controls, profiles, logs and test tools.
-- MobileViT v2 ONNX inference and a native MediaPipe face-landmarker channel, with pose baselines, dwell timers and alert cooldowns.
-- Audio/TTS alerts with optional Gemini wording and request instrumentation.
-- Local SQLite and Firestore log sinks, GPS, timing and event aggregation.
-- Python/Streamlit fleet dashboard with event summaries and map views.
-- PyTorch/timm model timing and a TorchScript conversion experiment.
+## Core Capabilities
 
-Flutter classifier label order: `drowsy`, `focused`, `using phone`, `yawning`. Looking-away and no-face conditions are handled separately. Earlier Python/Kivy experiments have different configurations.
-
-## Repository map
-
-| Path | Purpose |
+| Component | Implementation |
 |---|---|
-| [prototype/lib/](prototype/lib/) | Flutter source extracted from the thesis archive |
-| [prototype/driver_log_dashboard.py](prototype/driver_log_dashboard.py) | Fleet dashboard |
-| [prototype/fps_model_test.py](prototype/fps_model_test.py) | Synthetic-input model timing |
-| [prototype/pth_pt.py](prototype/pth_pt.py) | Historical TorchScript conversion experiment |
-| [docs/REVIEW_GUIDE.md](docs/REVIEW_GUIDE.md) | Walkthrough and engineering findings |
-| [prototype/README.md](prototype/README.md) | Setup prerequisites and missing artifacts |
-| [prototype/PUBLICATION_NOTES.md](prototype/PUBLICATION_NOTES.md) | Publication changes |
-| model_trainers/, app_codes_v8/, android test code/ | Existing earlier material, preserved |
-| [docs/legacy-kivy-readme.md](docs/legacy-kivy-readme.md) | Historical previous README |
+| **Driver-state classification** | MobileViT v2 inference through ONNX Runtime, with preprocessing and prediction handling in Dart |
+| **Attention monitoring** | Native MediaPipe face-landmarker interface, calibrated head-pose baselines, sustained-event detection, and alert cooldowns |
+| **Mobile application** | Flutter interface for camera streaming, calibration, monitoring settings, profiles, and log review |
+| **Driver feedback** | Audio and text-to-speech alerts, with optional Gemini-generated phrasing |
+| **Telemetry and storage** | SQLite and Firestore logging, GPS integration, event aggregation, and timing instrumentation |
+| **Fleet analytics** | Streamlit dashboard for reviewing driver-event summaries and geographic information |
+| **Model tooling** | PyTorch/timm utilities for checkpoint inference timing and experimental TorchScript conversion |
 
-## System flow
+The Flutter classifier uses four output labels: **drowsy**, **focused**, **using phone**, and **yawning**. Separate monitoring rules handle conditions such as looking away and loss of face detection.
+
+## System Architecture
 
 ```text
-MJPEG camera -> preprocessing -> native landmarks + ONNX classification
- -> calibration / dwell rules -> UI + audio / TTS (+ optional Gemini)
- -> local SQLite / optional Firestore logs -> Streamlit fleet dashboard
+Camera Stream (MJPEG)
+        |
+        v
+Frame Decoding and Preprocessing
+        |
+        +--> Native Face Landmarks and Head Pose
+        |
+        +--> MobileViT v2 Classification (ONNX Runtime)
+        |
+        v
+Calibration, Dwell-Time Rules, and Alert Management
+        |
+        +--> Monitoring Interface and Audio/TTS Feedback
+        |           |
+        |           +--> Optional Gemini-Assisted Alert Wording
+        |
+        v
+Event Logging: SQLite / Firestore
+        |
+        v
+Fleet Dashboard: Streamlit
 ```
 
-## Reproduction status
+The vision pipeline and temporal rules determine monitoring states. The optional language-model integration provides alert wording.
 
-The archive contains three Python scripts and Flutter `lib/` sources. It does NOT contain the original `pubspec.yaml`/lockfile, Android/iOS scaffolding, native `face_landmarker` implementation, model/audio assets, firmware, datasets, checkpoints, or a reproducible accuracy-evaluation bundle. No hardware run, mobile build, live-cloud integration or accuracy result was independently reproduced for publication. See the static validation report.
+## Repository Structure
 
-## Team and provenance
+| Directory or File | Description |
+|---|---|
+| [`prototype/lib/`](prototype/lib/) | Flutter application source |
+| [`prototype/driver_log_dashboard.py`](prototype/driver_log_dashboard.py) | Fleet-event analytics dashboard |
+| [`prototype/fps_model_test.py`](prototype/fps_model_test.py) | Synthetic-input model inference benchmark |
+| [`prototype/pth_pt.py`](prototype/pth_pt.py) | Experimental checkpoint-to-TorchScript utility |
+| `model_trainers/` | Earlier model-training material |
+| `app_codes_v8/` and `android test code/` | Earlier application and platform experiments |
+| [`docs/REVIEW_GUIDE.md`](docs/REVIEW_GUIDE.md) | Source walkthrough and engineering discussion points |
+| [`prototype/README.md`](prototype/README.md) | Environment requirements and setup guidance |
+| [`prototype/VALIDATION.md`](prototype/VALIDATION.md) | Completed checks and verification scope |
+| [`prototype/PUBLICATION_NOTES.md`](prototype/PUBLICATION_NOTES.md) | Archive preparation and configuration changes |
 
-Thesis: **Driver Attention Monitoring System with AI-Based Assistant for Fleet Operations**. Team: Michael Judrick M. Aringo, Henson Adrian T. Lee, Gabriel Alexis C. Ocampo, Jared Craig C. Ong. Repository ownership does not imply sole authorship.
+Earlier Python/Kivy experiments are retained as part of the project's development history. Their model configurations and deployment paths differ from the Flutter prototype. The previous README is available in the [historical documentation](docs/legacy-kivy-readme.md).
 
-Snapshot source: `DSP-1-2425-C1-Thesis Prototype Codes.zip`. Original-file hashes and publication changes are documented. Earlier repository history remains intact.
+## Setup and Reproducibility
 
-## Research limitations
+This repository provides research source code and supporting utilities. Reconstructing the complete mobile environment requires the original Flutter manifest and dependency lockfile, native platform projects, face-landmarker implementation, model and audio assets, and development-backend configuration.
 
-This is a research prototype, not a validated automotive safety product. Archived authentication stores plaintext passwords and needs replacement before real accounts are used. Location, identity and conversation logs need appropriate access controls, consent and retention. Use synthetic data and an isolated backend for review.
+See the [setup guide](prototype/README.md) for component-specific prerequisites. Credentials and original Firebase project configuration are excluded.
 
-## Licensing
+**Verification scope:** the published Python utilities pass syntax checks, and the Dart sources pass a formatter/parser check. These checks do not establish a successful mobile build or reproduce hardware operation, cloud integration, or model accuracy. Trained checkpoints, datasets, camera firmware, and a complete evaluation bundle are not included.
 
-No new license grant is made by this upload. The old README's MIT/commercial-use wording was inconsistent, and no project license file accompanied the archive. Confirm permissions with the authors before reuse; dependencies retain their own licenses.
+## Research Scope
+
+The system is an academic prototype intended for technical study and experimentation. Deployment would require further validation of detection performance, reliability, authentication, and the handling of driver information.
+
+The [technical review guide](docs/REVIEW_GUIDE.md) documents specific engineering considerations, including prototype credential storage, logging controls, and the distinction between model-only inference timing and end-to-end system latency. Use synthetic data and an isolated development backend when evaluating the source.
+
+## Academic Context and Contributors
+
+**Thesis:** *Driver Attention Monitoring System with AI-Based Assistant for Fleet Operations*  
+**Institution:** De La Salle University  
+**Program:** Bachelor of Science in Computer Engineering
+
+Developed collaboratively by:
+
+- Michael Judrick M. Aringo
+- Henson Adrian T. Lee
+- Gabriel Alexis C. Ocampo
+- Jared Craig C. Ong
+
+The prototype source was prepared from the team's thesis-code archive. An [original-file manifest](prototype/ARCHIVE_MANIFEST.json) and publication notes document its provenance and preparation.
+
+## Usage and Licensing
+
+A project-wide license has not been established for this source release. Please contact the authors regarding reuse or redistribution. Third-party libraries, models, and tools remain subject to their respective licenses.
