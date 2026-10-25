@@ -5,7 +5,7 @@ A Computer Engineering undergraduate thesis developed at **De La Salle Universit
 
 The project combines camera-based driver-state classification with facial landmarks, head-pose calibration, and temporal decision rules. A Flutter application provides monitoring and feedback, while a Streamlit dashboard supports review of aggregated driver events.
 
-[Technical walkthrough](docs/REVIEW_GUIDE.md) · [Prototype setup](prototype/README.md) · [Validation notes](prototype/VALIDATION.md)
+[Architecture](docs/ARCHITECTURE.md) · [Prototype setup](prototype/README.md) · [Validation notes](prototype/VALIDATION.md)
 
 ## Core Capabilities
 
@@ -59,26 +59,25 @@ The vision pipeline and temporal rules determine monitoring states. The optional
 | [`prototype/pth_pt.py`](prototype/pth_pt.py) | Experimental checkpoint-to-TorchScript utility |
 | `model_trainers/` | Earlier model-training material |
 | `app_codes_v8/` and `android test code/` | Earlier application and platform experiments |
-| [`docs/REVIEW_GUIDE.md`](docs/REVIEW_GUIDE.md) | Source walkthrough and engineering discussion points |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Component architecture and implementation notes |
 | [`prototype/README.md`](prototype/README.md) | Environment requirements and setup guidance |
 | [`prototype/VALIDATION.md`](prototype/VALIDATION.md) | Completed checks and verification scope |
-| [`prototype/PUBLICATION_NOTES.md`](prototype/PUBLICATION_NOTES.md) | Archive preparation and configuration changes |
 
-Earlier Python/Kivy experiments are retained as part of the project's development history. Their model configurations and deployment paths differ from the Flutter prototype. The previous README is available in the [historical documentation](docs/legacy-kivy-readme.md).
+Earlier Python/Kivy experiments are retained as part of the project's development history. Their model configurations and deployment paths differ from the Flutter prototype.
 
 ## Setup and Reproducibility
 
-This repository provides research source code and supporting utilities. Reconstructing the complete mobile environment requires the original Flutter manifest and dependency lockfile, native platform projects, face-landmarker implementation, model and audio assets, and development-backend configuration.
+This repository contains the mobile application sources, dashboard, and supporting model utilities. Running the complete system requires the Flutter manifest and dependency lockfile, native platform projects, face-landmarker implementation, model and audio assets, and development-backend configuration.
 
 See the [setup guide](prototype/README.md) for component-specific prerequisites. Credentials and original Firebase project configuration are excluded.
 
-**Verification scope:** the published Python utilities pass syntax checks, and the Dart sources pass a formatter/parser check. These checks do not establish a successful mobile build or reproduce hardware operation, cloud integration, or model accuracy. Trained checkpoints, datasets, camera firmware, and a complete evaluation bundle are not included.
+Trained model weights, datasets, camera firmware, and some platform/build files are not included. Refer to the [setup guide](prototype/README.md) for requirements and [validation notes](prototype/VALIDATION.md) for the scope of the available checks.
 
 ## Research Scope
 
 The system is an academic prototype intended for technical study and experimentation. Deployment would require further validation of detection performance, reliability, authentication, and the handling of driver information.
 
-The [technical review guide](docs/REVIEW_GUIDE.md) documents specific engineering considerations, including prototype credential storage, logging controls, and the distinction between model-only inference timing and end-to-end system latency. Use synthetic data and an isolated development backend when evaluating the source.
+The [architecture documentation](docs/ARCHITECTURE.md) describes the monitoring pipeline, logging behavior, and current implementation considerations. Use synthetic data and an isolated development backend for testing.
 
 ## Academic Context and Contributors
 
@@ -92,8 +91,6 @@ Developed collaboratively by:
 - Henson Adrian T. Lee
 - Gabriel Alexis C. Ocampo
 - Jared Craig C. Ong
-
-The prototype source was prepared from the team's thesis-code archive. An [original-file manifest](prototype/ARCHIVE_MANIFEST.json) and publication notes document its provenance and preparation.
 
 ## Usage and Licensing
 

@@ -2,7 +2,7 @@
 
 - Python: all 3 scripts parse with the Python AST parser.
 - Dart: installed formatter/parser accepted all 24 Dart source files (`dart format --output=none`); this is NOT dependency/type analysis or a build. Formatting differences were reported, without writing them.
-- Credential-pattern scan: no Google API key values or private-key blocks remain in newly published source.
+- Credential-pattern scan: no Google API key values or private-key blocks remain in newly source.
 - Relative import inventory:
 - Missing: `lib/main.dart -> firebase_options.dart`
 

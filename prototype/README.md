@@ -1,4 +1,4 @@
-# Prototype setup and source review
+# Prototype setup and development
 
 This folder is an incomplete source snapshot, not a ready-to-run Flutter project.
 
@@ -25,7 +25,7 @@ python -m pip install -r prototype/requirements-dashboard.txt
 python -m streamlit run prototype/driver_log_dashboard.py
 ```
 
-Configure Application Default Credentials for YOUR test project, for example `GOOGLE_APPLICATION_CREDENTIALS` pointing to a local service-account file. No records or credentials are supplied. The dashboard connects to Firestore at startup. `fetch_logs` documents `driver_logs_new`: identifiers, timestamps, GPS aggregates and warning/alert counts. Do not connect reviewers to production.
+Configure Application Default Credentials for YOUR test project, for example `GOOGLE_APPLICATION_CREDENTIALS` pointing to a local service-account file. No records or credentials are supplied. The dashboard connects to Firestore at startup. `fetch_logs` documents `driver_logs_new`: identifiers, timestamps, GPS aggregates and warning/alert counts. Use an isolated development project for testing.
 
 ## Model utilities
 
